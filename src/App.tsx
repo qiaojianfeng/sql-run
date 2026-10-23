@@ -52,6 +52,9 @@ export default function App() {
   const [selectionVersion, setSelectionVersion] = useState(0);
   const [lastRun, setLastRun] = useState<{ document: string; from: number; to: number } | null>(null);
   const [actionNotice, setActionNotice] = useState('');
+  const [isTopbarStuck, setIsTopbarStuck] = useState(false);
+  const topbarSentinelRef = useRef<HTMLDivElement>(null);
+  const topbarRef = useRef<HTMLElement>(null);
   const editorRef = useRef<SqlEditorHandle>(null);
   const table = database.schema.find((item) => item.name === selectedTable);
   const isDefault = database.kind === 'default';
@@ -66,6 +69,28 @@ export default function App() {
   useEffect(() => {
     if (page === 'playground') editorRef.current?.focus();
   }, [page]);
+
+  useEffect(() => {
+    const sentinel = topbarSentinelRef.current;
+    const topbar = topbarRef.current;
+    if (!sentinel || !topbar) return;
+
+    const stickyObserver = new IntersectionObserver(([entry]) => {
+      setIsTopbarStuck(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    const updateHeight = () => {
+      topbar.parentElement?.style.setProperty('--topbar-height', `${topbar.offsetHeight}px`);
+    };
+    const resizeObserver = new ResizeObserver(updateHeight);
+    updateHeight();
+    stickyObserver.observe(sentinel);
+    resizeObserver.observe(topbar);
+
+    return () => {
+      stickyObserver.disconnect();
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     setHistory((entries) => entries.map((entry) => entry.status === 'running'
@@ -156,7 +181,8 @@ export default function App() {
         onInsertField={insertField}
       />
       <main className="main-area">
-        <header className="topbar">
+        <div className="topbar-sentinel" ref={topbarSentinelRef} aria-hidden="true" />
+        <header ref={topbarRef} className={`topbar${isTopbarStuck ? ' is-stuck' : ''}`}>
           <nav className="topbar-nav" aria-label="工作空间导航">
             <button
               className={page === 'playground' ? 'active' : ''}

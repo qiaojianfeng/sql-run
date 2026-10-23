@@ -201,7 +201,8 @@ sql-run/
 ├── docs/assets/        README 品牌图
 ├── src/
 │   ├── components/    实验台、编辑器、文档、导入弹窗等组件
-│   ├── data/          默认数据、字段说明、练习与教程
+│   ├── content/lessons/  Markdown 学习教程（每篇一个文件）
+│   ├── data/          默认数据、字段说明、练习与教程加载器
 │   ├── database/      SQL 引擎、Web Worker、导入与测试
 │   ├── hooks/         数据库生命周期、本地存储与主题
 │   ├── App.tsx        页面布局与菜单切换
@@ -219,8 +220,8 @@ sql-run/
 | --- | --- |
 | [`src/data/dataset.ts`](src/data/dataset.ts) | 默认建表 SQL、初始化数据和字段注释 |
 | [`src/data/exercises.ts`](src/data/exercises.ts) | 练习题、提示与参考答案 |
-| [`src/data/lessons.ts`](src/data/lessons.ts) | 学习文档及可执行示例 |
-| [`src/data/lessonDetails.ts`](src/data/lessonDetails.ts) | 教程的延伸讲解、速查表、结果解读与动手任务 |
+| [`src/content/lessons/`](src/content/lessons/) | Markdown 教程、学习目标、示例 SQL、结果解读与巩固任务 |
+| [`学习文档维护说明`](src/content/README.md) | 教程格式、新增方式与校验命令 |
 | [`src/theme.css`](src/theme.css) | 全站主题颜色 |
 
 ## 参与贡献
@@ -231,7 +232,7 @@ sql-run/
 - **提出改进：** 较大功能建议先通过 Issue 讨论范围，再开始实现。
 - **提交代码：** Fork 仓库并创建分支，保持改动聚焦；使用 pnpm 更新依赖和锁文件，提交前运行 `pnpm typecheck` 与相关测试。涉及界面调整时，请附上深浅模式截图。
 - **补充内容：** 新增练习应提供提示和可运行答案；教程中涉及 MySQL 特有行为时，请明确兼容边界。
-- **编写教程：** 在正文、列表和表格中用反引号标记 SQL 关键字、字段或表达式，页面会显示为行内代码；段落之间用两个换行分隔。请同步补充学习目标、结果解读和巩固任务，并确认示例可在默认学习库运行。
+- **编写教程：** 在 `src/content/lessons/` 中新增或修改 Markdown 文件，格式见[维护说明](src/content/README.md)。支持行内代码、列表、表格、链接与代码块；请同步补充学习目标、结果解读和巩固任务，并确认示例可在默认学习库运行。
 
 ## 致谢
 

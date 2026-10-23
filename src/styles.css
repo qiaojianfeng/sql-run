@@ -431,11 +431,21 @@ svg {
 }
 
 .main-area {
+  --topbar-height: 68px;
   flex: 1;
   min-width: 0;
 }
 
+.topbar-sentinel {
+  height: 1px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   min-height: 68px;
   background: var(--surface);
   border-bottom: 1px solid var(--border-subtle);
@@ -445,6 +455,25 @@ svg {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px 20px;
+  box-shadow: 0 6px 20px transparent;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition: background-color 240ms ease, border-color 240ms ease,
+    box-shadow 240ms ease, backdrop-filter 240ms ease;
+}
+
+.topbar.is-stuck {
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border-bottom-color: var(--border);
+  box-shadow: 0 6px 20px var(--shadow), 0 1px 4px var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: topbar-settle 240ms ease-out;
+}
+
+@keyframes topbar-settle {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(0); }
 }
 
 .topbar-actions, .topbar-nav {

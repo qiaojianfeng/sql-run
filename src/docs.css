@@ -19,8 +19,8 @@
 .docs-directory {
   padding: 18px 14px;
   position: sticky;
-  top: 24px;
-  max-height: calc(100dvh - 160px);
+  top: calc(var(--topbar-height) + 24px);
+  max-height: calc(100dvh - var(--topbar-height) - 48px);
   overflow-y: auto;
 }
 
@@ -104,7 +104,7 @@
   min-width: 0;
   width: 100%;
   max-width: 1060px;
-  scroll-margin-top: 24px;
+  scroll-margin-top: calc(var(--topbar-height) + 24px);
 }
 
 .docs-article-meta {
@@ -150,7 +150,7 @@
   font-weight: 600;
   margin: 0 0 16px;
   line-height: 1.6;
-  scroll-margin-top: 28px;
+  scroll-margin-top: calc(var(--topbar-height) + 28px);
 }
 
 .docs-section p,
@@ -187,6 +187,37 @@
   overflow-wrap: anywhere;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+.docs-markdown-code {
+  overflow-x: auto;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.docs-markdown-code .docs-inline-code {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+.docs-section a,
+.docs-result-guide a,
+.docs-challenge a,
+.docs-callout a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.docs-learning-goals li > p {
+  margin: 0;
 }
 
 .docs-learning-goals {

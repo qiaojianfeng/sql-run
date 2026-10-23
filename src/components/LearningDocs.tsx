@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight, BookOpen, Check, Clock3, List, Search } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { lessons } from '../data/lessons';
-import { InlineCode } from './InlineCode';
+import { LessonMarkdown } from './LessonMarkdown';
 import { SqlExample } from './SqlExample';
 
 interface Props {
@@ -21,8 +21,7 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
       item.title, item.category, item.summary, item.sql, item.note,
       item.walkthrough, item.challenge, ...item.goals,
       ...item.sections.flatMap((section) => [
-        section.title, section.text, ...(section.items ?? []),
-        ...(section.table?.headers ?? []), ...(section.table?.rows.flat() ?? []),
+        section.title, section.text,
       ]),
     ]
       .join(' ').toLocaleLowerCase().includes(query)
@@ -52,7 +51,7 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
         <div>
           <div className="eyebrow"><span /> SQL LEARNING GUIDE</div>
           <h1>从读懂，到写出 SQL<span>。</span></h1>
-          <p>12 篇内置教程，从基础查询到事务与索引，结合实验数据边学边练。</p>
+          <p>{lessons.length} 篇内置教程，从基础查询到事务与索引，结合实验数据边学边练。</p>
         </div>
       </div>
       {!isDefault && (
@@ -72,7 +71,7 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
               onChange={(event) => setSearch(event.target.value)}
             />
           </label>
-          <p className="docs-count">{query ? `找到 ${matches.length} 篇文档` : '学习目录 · 12 篇'}</p>
+          <p className="docs-count">{query ? `找到 ${matches.length} 篇文档` : `学习目录 · ${lessons.length} 篇`}</p>
           {categories.map((category) => (
             <div className="docs-category" key={category}>
               <h2>{category}</h2>
@@ -103,7 +102,7 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
               {lesson.goals.map((goal) => (
                 <li key={goal}>
                   <Check size={15} />
-                  <InlineCode>{goal}</InlineCode>
+                  <LessonMarkdown>{goal}</LessonMarkdown>
                 </li>
               ))}
             </ul>
@@ -124,52 +123,22 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
                 <span className="docs-section-number" aria-hidden="true">{String(sectionIndex + 1).padStart(2, '0')}</span>
                 {section.title}
               </h3>
-              {section.text.split('\n\n').map((paragraph) => (
-                <p key={paragraph}><InlineCode>{paragraph}</InlineCode></p>
-              ))}
-              {section.items && (
-                <ul className="docs-prose-list">
-                  {section.items.map((item) => <li key={item}><InlineCode>{item}</InlineCode></li>)}
-                </ul>
-              )}
-              {section.table && (
-                <div className="docs-table-scroll" role="region" aria-label={`${section.title}对照表`} tabIndex={0}>
-                  <table className="docs-reference-table">
-                    <caption>{section.title} · 速查对照</caption>
-                    <thead>
-                      <tr>
-                        {section.table.headers.map((header) => (
-                          <th scope="col" key={header}>{header}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {section.table.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}><InlineCode>{cell}</InlineCode></td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+              <LessonMarkdown title={section.title}>{section.text}</LessonMarkdown>
             </section>
           ))}
           <SqlExample key={lesson.id} sql={lesson.sql} onPractice={onPractice} />
           <section className="docs-result-guide">
             <h3>运行后，重点看这里</h3>
-            <p><InlineCode>{lesson.walkthrough}</InlineCode></p>
+            <LessonMarkdown>{lesson.walkthrough}</LessonMarkdown>
           </section>
           <section className="docs-challenge">
             <div className="docs-challenge-label">YOUR TURN <span>巩固练习</span></div>
-            <p><InlineCode>{lesson.challenge}</InlineCode></p>
+            <LessonMarkdown>{lesson.challenge}</LessonMarkdown>
             <span className="docs-challenge-hint">载入上方示例，尝试修改后运行，用结果验证你的理解。</span>
           </section>
           <aside className="docs-callout">
             <strong>学习提醒</strong>
-            <p><InlineCode>{lesson.note}</InlineCode></p>
+            <LessonMarkdown>{lesson.note}</LessonMarkdown>
           </aside>
           <p className="docs-compatibility">本地示例由 SQLite 执行。MySQL 专项行为和语法差异会单独说明。</p>
           <div className="docs-pagination">
