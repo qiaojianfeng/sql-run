@@ -100,7 +100,12 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
           <div className="docs-learning-goals">
             <h3>这篇你将学会</h3>
             <ul>
-              {lesson.goals.map((goal) => <li key={goal}><Check size={15} /><InlineCode>{goal}</InlineCode></li>)}
+              {lesson.goals.map((goal) => (
+                <li key={goal}>
+                  <Check size={15} />
+                  <InlineCode>{goal}</InlineCode>
+                </li>
+              ))}
             </ul>
           </div>
           <nav className="docs-outline" aria-label="本篇章节">
@@ -131,10 +136,20 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
                 <div className="docs-table-scroll" role="region" aria-label={`${section.title}对照表`} tabIndex={0}>
                   <table className="docs-reference-table">
                     <caption>{section.title} · 速查对照</caption>
-                    <thead><tr>{section.table.headers.map((header) => <th scope="col" key={header}>{header}</th>)}</tr></thead>
+                    <thead>
+                      <tr>
+                        {section.table.headers.map((header) => (
+                          <th scope="col" key={header}>{header}</th>
+                        ))}
+                      </tr>
+                    </thead>
                     <tbody>
                       {section.table.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex}><InlineCode>{cell}</InlineCode></td>)}</tr>
+                        <tr key={rowIndex}>
+                          {row.map((cell, cellIndex) => (
+                            <td key={cellIndex}><InlineCode>{cell}</InlineCode></td>
+                          ))}
+                        </tr>
                       ))}
                     </tbody>
                   </table>
@@ -152,7 +167,10 @@ export function LearningDocs({ onPractice, isDefault }: Props) {
             <p><InlineCode>{lesson.challenge}</InlineCode></p>
             <span className="docs-challenge-hint">载入上方示例，尝试修改后运行，用结果验证你的理解。</span>
           </section>
-          <aside className="docs-callout"><strong>学习提醒</strong><p><InlineCode>{lesson.note}</InlineCode></p></aside>
+          <aside className="docs-callout">
+            <strong>学习提醒</strong>
+            <p><InlineCode>{lesson.note}</InlineCode></p>
+          </aside>
           <p className="docs-compatibility">本地示例由 SQLite 执行。MySQL 专项行为和语法差异会单独说明。</p>
           <div className="docs-pagination">
             <button disabled={index === 0} onClick={() => selectLesson(lessons[index - 1].id)}>
