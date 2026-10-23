@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f5" />
+    <script>
+      (() => {
+        let saved;
+        try {
+          saved = localStorage.getItem('sql-run.theme');
+        } catch {
+          // Browser storage may be disabled; use the system appearance instead.
+        }
+        const theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#0a0a0a' : '#f5f5f5';
+      })();
+    </script>
+    <meta name="description" content="打开即用的 SQL 学习实验台，内置数据和练习，所有 SQL 在浏览器本地运行。" />
+    <title>SQL-RUN · 你的 SQL 练习空间</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

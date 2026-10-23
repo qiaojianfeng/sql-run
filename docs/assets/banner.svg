@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">SQL-RUN</title>
+  <desc id="description">浏览器里的 SQL 学习实验台。内置数据、学习文档和练习，无需后台。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#090909" />
+      <stop offset="1" stop-color="#202018" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="20" fill="url(#background)" />
+  <rect x="1" y="1" width="1198" height="358" rx="19" stroke="#33332A" />
+  <rect x="56" y="52" width="46" height="46" rx="12" fill="#FACC15" />
+  <path d="m69 66 8 8-8 8m14 0h8" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="118" y="84" fill="#FACC15" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="4">LEARN. QUERY. REPEAT.</text>
+  <text x="56" y="176" fill="#FAFAFA" font-family="Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="-3">SQL<tspan fill="#FACC15">-RUN</tspan></text>
+  <text x="59" y="225" fill="#D4D4D4" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="23">浏览器里的 SQL 学习实验台</text>
+  <text x="59" y="278" fill="#A3A3A3" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="15">内置数据 · 随手查询 · 边学边练 · 本地运行</text>
+  <rect x="651" y="48" width="493" height="264" rx="12" fill="#111111" stroke="#3A3A31" />
+  <path d="M651 91h493" stroke="#30302A" />
+  <circle cx="674" cy="70" r="4" fill="#FACC15" />
+  <text x="689" y="75" fill="#B7B7AA" font-family="Consolas, monospace" font-size="13">playground.sql</text>
+  <g font-family="Consolas, monospace" font-size="17">
+    <text x="677" y="132" fill="#73736B">1</text>
+    <text x="710" y="132" fill="#C8ACFA">SELECT<tspan fill="#EAEAE5"> name, age</tspan></text>
+    <text x="677" y="167" fill="#73736B">2</text>
+    <text x="710" y="167" fill="#C8ACFA">FROM<tspan fill="#EAEAE5"> students</tspan></text>
+    <text x="677" y="202" fill="#73736B">3</text>
+    <text x="710" y="202" fill="#C8ACFA">WHERE<tspan fill="#EAEAE5"> age &gt;= </tspan><tspan fill="#D9BB85">20</tspan><tspan fill="#EAEAE5">;</tspan></text>
+  </g>
+  <rect x="710" y="241" width="120" height="36" rx="6" fill="#FACC15" />
+  <path d="m726 251 11 8-11 8v-16Z" fill="#171717" />
+  <text x="748" y="264" fill="#171717" font-family="Arial, sans-serif" font-size="13" font-weight="700">RUN SQL</text>
+  <text x="852" y="264" fill="#8F8F83" font-family="Arial, sans-serif" font-size="12">No server. Just SQL.</text>
+</svg>
